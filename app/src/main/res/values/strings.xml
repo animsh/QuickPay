@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">QuickPay</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_icon">Login Icon</string>
+    <string name="login">Login</string>
+    <string name="email_id">Email ID</string>
+    <string name="password">Password</string>
+    <string name="or_login_with">or, login with...</string>
+    <string name="google_login">Google Login</string>
+    <string name="facebook_login">Facebook Login</string>
+    <string name="new_to_quickpay">New to QuickPay?</string>
+    <string name="register">Register</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="enter_your_email_addreess_and_we_will_share_a_link_to_create_a_new_password">Enter Your Email Addreess And We Will Share A Link To Create A New Password.</string>
+    <string name="send">Send</string>
+    <string name="forget_password_icon">Forget Password Icon</string>
+    <string name="sign_up_icon">Sign up Icon</string>
+    <string name="sign_up">Sign up</string>
+    <string name="or_register_with">or, register with...</string>
+    <string name="full_name">Full Name</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="already_on_quickpay">Already on QuickPay?</string>
 </resources>

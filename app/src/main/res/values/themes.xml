@@ -12,10 +12,12 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowActivityTransitions">true</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <item name="fontFamily">@font/gilroy</item>
         <item name="background_color">@color/backGroundColorLight</item>
         <item name="text_color">@color/textColorLight</item>
         <item name="bottom_line_color">@color/bottomLineColorLight</item>
+        <item name="bottom_sheet_background">@color/backGroundColorLight</item>
     </style>
 </resources>

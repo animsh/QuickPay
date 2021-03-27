@@ -6,5 +6,6 @@
         <attr name="text_color" format="color" />
         <attr name="icon_tint_color" format="color" />
         <attr name="bottom_line_color" format="color" />
+        <attr name="bottom_sheet_background" format="color" />
     </declare-styleable>
 </resources>

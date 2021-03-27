@@ -16,8 +16,10 @@
     <color name="textColorLight">#121212</color>
     <color name="bottomLineColorLight">#E5E5E5</color>
 
+    <!-- dark mode colors -->
     <color name="backGroundColorDark">#000000</color>
     <color name="textColorDark">#FFFFFF</color>
     <color name="bottomLineColorDark">#2FE5E5E5</color>
+    <color name="bottomSheetColorDark">#121212</color>
 
 </resources>

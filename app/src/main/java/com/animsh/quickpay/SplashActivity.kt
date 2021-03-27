@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.animsh.quickpay.databinding.ActivitySplashBinding
+import com.animsh.quickpay.ui.auth.AuthActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -20,7 +21,7 @@ class SplashActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             delay(1000)
-            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            startActivity(Intent(this@SplashActivity, AuthActivity::class.java))
             finish()
         }
     }

@@ -1,6 +1,5 @@
 package com.animsh.quickpay.ui.auth
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.animsh.quickpay.entities.FAuth
 import com.animsh.quickpay.entities.User
@@ -27,6 +26,23 @@ class AuthRepository {
                 fAuth.value = FAuth(errorMsg = msg)
             }
         }
+        return fAuth
+    }
+
+    fun signUp(user: User): MutableLiveData<FAuth> {
+        val fAuth: MutableLiveData<FAuth> = MutableLiveData()
+        firebaseAuth.createUserWithEmailAndPassword(user.email, user.password)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    val isSuccess = it.result?.user?.uid != null
+                    val msg = it.exception?.message.toString()
+                    fAuth.value = FAuth(isSuccess, msg)
+                } else {
+                    val msg = it.exception?.message.toString()
+                    fAuth.value = FAuth(errorMsg = msg)
+                }
+            }
+
         return fAuth
     }
 

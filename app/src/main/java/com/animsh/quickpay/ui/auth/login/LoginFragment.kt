@@ -3,6 +3,7 @@ package com.animsh.quickpay.ui.auth.login
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), KodeinAware {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enterTransition = MaterialFadeThrough()
         exitTransition = MaterialFadeThrough()
         viewModel = ViewModelProvider(requireActivity(), factory).get(LoginViewModel::class.java)
     }
@@ -54,7 +56,21 @@ class LoginFragment : Fragment(R.layout.fragment_login), KodeinAware {
                 val uPassword = editTextPassword.text
 
                 if (uEmail.isNullOrEmpty() || uPassword.isNullOrEmpty()) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Please fill all the details!!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     return@setOnClickListener
+                } else {
+                    if (!Patterns.EMAIL_ADDRESS.matcher(uEmail).matches()) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Please use valid email address!!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        return@setOnClickListener
+                    }
                 }
 
                 viewModel.loginUser(
@@ -66,7 +82,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), KodeinAware {
                     viewModel.authenticatedUserLiveData.observe(
                         viewLifecycleOwner,
                         { result ->
-                            if (result.isLogin) {
+                            if (result.isSuccess) {
                                 val sharedPref =
                                     activity?.getSharedPreferences(
                                         getString(R.string.app_name),

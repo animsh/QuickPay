@@ -2,6 +2,7 @@ package com.animsh.quickpay
 
 import android.app.Application
 import com.animsh.quickpay.ui.auth.AuthRepository
+import com.animsh.quickpay.ui.auth.forgetpassword.ForgetPasswordViewModelFactory
 import com.animsh.quickpay.ui.auth.login.LoginViewModelFactory
 import com.animsh.quickpay.ui.auth.signup.SignUpViewModelFactory
 import org.kodein.di.Kodein
@@ -22,6 +23,7 @@ class QuickPayApplication : Application(), KodeinAware {
         bind() from singleton { AuthRepository() }
         bind() from provider { LoginViewModelFactory(instance()) }
         bind() from provider { SignUpViewModelFactory(instance()) }
+        bind() from provider { ForgetPasswordViewModelFactory(instance()) }
     }
 
 }

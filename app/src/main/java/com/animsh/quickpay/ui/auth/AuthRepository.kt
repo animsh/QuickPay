@@ -46,6 +46,21 @@ class AuthRepository {
         return fAuth
     }
 
+    fun forgetPassword(uEmail: String): MutableLiveData<FAuth> {
+        val fAuth: MutableLiveData<FAuth> = MutableLiveData()
+        firebaseAuth.sendPasswordResetEmail(uEmail).addOnCompleteListener {
+            if (it.isSuccessful) {
+                val isSuccess = true
+                val msg = it.exception?.message.toString()
+                fAuth.value = FAuth(isSuccess, msg)
+            } else {
+                val msg = it.exception?.message.toString()
+                fAuth.value = FAuth(errorMsg = msg)
+            }
+        }
+        return fAuth
+    }
+
     fun logout() = firebaseAuth.signOut()
 
     fun currentUser() = firebaseAuth.currentUser

@@ -1,7 +1,9 @@
 package com.animsh.quickpay
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.animsh.quickpay.databinding.ActivitySplashBinding
@@ -21,7 +23,16 @@ class SplashActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             delay(1000)
-            startActivity(Intent(this@SplashActivity, AuthActivity::class.java))
+            val sharedPref =
+                getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE)
+                    ?: return@launch
+            val isUserLogin = sharedPref.getBoolean("userLogin", false)
+            Log.d("TAGTAGTAG", "onCreate: $isUserLogin")
+            if (isUserLogin) {
+                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            } else {
+                startActivity(Intent(this@SplashActivity, AuthActivity::class.java))
+            }
             finish()
         }
     }

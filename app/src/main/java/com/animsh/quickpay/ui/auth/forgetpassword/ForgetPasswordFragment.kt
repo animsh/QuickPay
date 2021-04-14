@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.animsh.quickpay.databinding.FragmentForgetpasswordBinding
+import com.animsh.quickpay.utils.LoadingDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
@@ -43,7 +44,13 @@ class ForgetPasswordFragment : BottomSheetDialogFragment(), KodeinAware {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+
+            val loadingDialog: LoadingDialog = LoadingDialog(requireActivity())
+
             sendEmailButton.setOnClickListener {
+
+                loadingDialog.showLoadingDialog()
+
                 val uEmail = editTextEmailID.text
 
                 if (uEmail.isNullOrEmpty()) {
@@ -52,6 +59,7 @@ class ForgetPasswordFragment : BottomSheetDialogFragment(), KodeinAware {
                         "Please enter email address!!",
                         Toast.LENGTH_SHORT
                     ).show()
+                    loadingDialog.dismissDialog()
                     return@setOnClickListener
                 } else {
                     if (!Patterns.EMAIL_ADDRESS.matcher(uEmail).matches()) {
@@ -60,6 +68,7 @@ class ForgetPasswordFragment : BottomSheetDialogFragment(), KodeinAware {
                             "Please enter valid email address!!",
                             Toast.LENGTH_SHORT
                         ).show()
+                        loadingDialog.dismissDialog()
                         return@setOnClickListener
                     }
                 }
@@ -72,6 +81,7 @@ class ForgetPasswordFragment : BottomSheetDialogFragment(), KodeinAware {
                                 "Please check your email for password reset link!!",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            loadingDialog.dismissDialog()
                             dismiss()
                         } else {
                             Toast.makeText(
@@ -79,6 +89,7 @@ class ForgetPasswordFragment : BottomSheetDialogFragment(), KodeinAware {
                                 result.errorMsg,
                                 Toast.LENGTH_SHORT
                             ).show()
+                            loadingDialog.dismissDialog()
                             dismiss()
                         }
                     })

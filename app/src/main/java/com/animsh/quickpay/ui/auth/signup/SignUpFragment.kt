@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.animsh.quickpay.R
 import com.animsh.quickpay.databinding.FragmentSignupBinding
 import com.animsh.quickpay.entities.User
+import com.animsh.quickpay.utils.LoadingDialog
 import com.google.android.material.transition.MaterialFadeThrough
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
@@ -48,7 +49,13 @@ class SignUpFragment : Fragment(R.layout.fragment_signup), KodeinAware {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+
+            val loadingDialog: LoadingDialog = LoadingDialog(requireActivity())
+
             signUpButton.setOnClickListener {
+
+                loadingDialog.showLoadingDialog()
+
                 val uEmail = editTextEmailID.text
                 val uFullName = editTextFullName.text
                 val uMobileNumber = editTextMobileNumber.text
@@ -60,6 +67,7 @@ class SignUpFragment : Fragment(R.layout.fragment_signup), KodeinAware {
                         "Please fill all the details!!",
                         Toast.LENGTH_SHORT
                     ).show()
+                    loadingDialog.dismissDialog()
                     return@setOnClickListener
                 } else {
                     if (!Patterns.EMAIL_ADDRESS.matcher(uEmail).matches()) {
@@ -68,6 +76,7 @@ class SignUpFragment : Fragment(R.layout.fragment_signup), KodeinAware {
                             "Please use valid email address!!",
                             Toast.LENGTH_SHORT
                         ).show()
+                        loadingDialog.dismissDialog()
                         return@setOnClickListener
                     }
                     if (!uMobileNumber.matches(Regex("^[+]?[0-9]{10}\$"))) {
@@ -76,6 +85,7 @@ class SignUpFragment : Fragment(R.layout.fragment_signup), KodeinAware {
                             "Please use valid Mobile Number!!",
                             Toast.LENGTH_SHORT
                         ).show()
+                        loadingDialog.dismissDialog()
                         return@setOnClickListener
                     }
                 }
@@ -94,6 +104,7 @@ class SignUpFragment : Fragment(R.layout.fragment_signup), KodeinAware {
                                 "Login using email & password!!",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            loadingDialog.dismissDialog()
                             findNavController().popBackStack(R.id.loginFragment, true)
                             findNavController().navigate(R.id.loginFragment)
                         } else {
@@ -102,6 +113,7 @@ class SignUpFragment : Fragment(R.layout.fragment_signup), KodeinAware {
                                 result.errorMsg,
                                 Toast.LENGTH_SHORT
                             ).show()
+                            loadingDialog.dismissDialog()
                         }
                     })
                 }

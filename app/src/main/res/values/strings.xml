@@ -22,4 +22,5 @@
     <string name="mobile_number">Mobile Number</string>
     <string name="already_on_quickpay">Already on QuickPay?</string>
     <string name="forget_password">Forget Password?</string>
+    <string name="wait_we_are_working_on_your_request">Wait! we are working on your request!!</string>
 </resources>

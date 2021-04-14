@@ -15,6 +15,7 @@ import com.animsh.quickpay.MainActivity
 import com.animsh.quickpay.R
 import com.animsh.quickpay.databinding.FragmentLoginBinding
 import com.animsh.quickpay.entities.User
+import com.animsh.quickpay.utils.LoadingDialog
 import com.google.android.material.transition.MaterialFadeThrough
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
@@ -51,7 +52,10 @@ class LoginFragment : Fragment(R.layout.fragment_login), KodeinAware {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
 
+            val loadingDialog: LoadingDialog = LoadingDialog(requireActivity())
+
             loginButton.setOnClickListener {
+                loadingDialog.showLoadingDialog()
                 val uEmail = editTextEmailID.text
                 val uPassword = editTextPassword.text
 
@@ -61,6 +65,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), KodeinAware {
                         "Please fill all the details!!",
                         Toast.LENGTH_SHORT
                     ).show()
+                    loadingDialog.dismissDialog()
                     return@setOnClickListener
                 } else {
                     if (!Patterns.EMAIL_ADDRESS.matcher(uEmail).matches()) {
@@ -69,6 +74,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), KodeinAware {
                             "Please use valid email address!!",
                             Toast.LENGTH_SHORT
                         ).show()
+                        loadingDialog.dismissDialog()
                         return@setOnClickListener
                     }
                 }
@@ -93,6 +99,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), KodeinAware {
                                     putBoolean("userLogin", true)
                                     apply()
                                 }
+                                loadingDialog.dismissDialog()
                                 startActivity(Intent(requireContext(), MainActivity::class.java))
                                 activity?.finish()
                             } else {
@@ -101,6 +108,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), KodeinAware {
                                     result.errorMsg,
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                loadingDialog.dismissDialog()
                             }
                         })
                 }

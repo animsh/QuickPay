@@ -2,8 +2,11 @@ package com.animsh.quickpay.data
 
 import androidx.lifecycle.MutableLiveData
 import com.animsh.quickpay.entities.FAuth
+import com.animsh.quickpay.entities.GAuth
 import com.animsh.quickpay.entities.User
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
+
 
 /**
  * Created by animsh on 4/11/2021.
@@ -59,6 +62,35 @@ class AuthRepository {
             }
         }
         return fAuth
+    }
+
+    fun googleAuthentication(authCredential: AuthCredential): MutableLiveData<GAuth> {
+        val gAuth: MutableLiveData<GAuth> = MutableLiveData()
+        firebaseAuth.signInWithCredential(authCredential).addOnCompleteListener {
+            if (it.isSuccessful) {
+                val isNewUser = it.result?.additionalUserInfo?.isNewUser ?: false
+                val currentUser = currentUser()
+                if (currentUser != null) {
+                    val id = currentUser.uid
+                    val uName = currentUser.displayName?.toString()
+                    val uEmail = currentUser.email?.toString()
+                    val uMobileNumber = currentUser.phoneNumber?.toString()
+                    gAuth.value = GAuth(
+                        isSuccess = true,
+                        isNew = isNewUser,
+                        uid = id,
+                        name = uName.toString(),
+                        email = uEmail.toString(),
+                        mobile = uMobileNumber.toString()
+                    )
+                } else {
+                    gAuth.value = GAuth(message = it.exception?.message.toString())
+                }
+            } else {
+                gAuth.value = GAuth(message = it.exception?.message.toString())
+            }
+        }
+        return gAuth
     }
 
     fun logout() = firebaseAuth.signOut()

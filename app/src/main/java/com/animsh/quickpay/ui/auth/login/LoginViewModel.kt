@@ -3,8 +3,11 @@ package com.animsh.quickpay.ui.auth.login
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.animsh.quickpay.data.AuthRepository
+import com.animsh.quickpay.data.DataStoreRepository
 import com.animsh.quickpay.entities.FAuth
+import com.animsh.quickpay.entities.GAuth
 import com.animsh.quickpay.entities.User
+import com.google.firebase.auth.AuthCredential
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,12 +17,24 @@ import kotlinx.coroutines.launch
  * Created by animsh on 3/25/2021.
  */
 class LoginViewModel(
-    private val repository: AuthRepository
+    private val repository: AuthRepository,
+    private val dataStoreRepository: DataStoreRepository
 ) : ViewModel() {
 
     var authenticatedUserLiveData: MutableLiveData<FAuth> = MutableLiveData()
+    var dataStoreLiveData: MutableLiveData<FAuth> = MutableLiveData()
+    var googleAuthenticationLiveData: MutableLiveData<GAuth> = MutableLiveData()
 
     fun loginUser(user: User) = CoroutineScope(Dispatchers.Main).launch {
         authenticatedUserLiveData = repository.login(user)
     }
+
+    fun createUser(user: User) = CoroutineScope(Dispatchers.Main).launch {
+        dataStoreLiveData = dataStoreRepository.createUser(user)
+    }
+
+    fun googleAuthentication(authCredential: AuthCredential) =
+        CoroutineScope(Dispatchers.Main).launch {
+            googleAuthenticationLiveData = repository.googleAuthentication(authCredential)
+        }
 }

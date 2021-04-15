@@ -23,7 +23,7 @@ class QuickPayApplication : Application(), KodeinAware {
 
         bind() from singleton { AuthRepository() }
         bind() from singleton { DataStoreRepository() }
-        bind() from provider { LoginViewModelFactory(instance()) }
+        bind() from provider { LoginViewModelFactory(instance(), instance()) }
         bind() from provider { SignUpViewModelFactory(instance(), instance()) }
         bind() from provider { ForgetPasswordViewModelFactory(instance()) }
     }

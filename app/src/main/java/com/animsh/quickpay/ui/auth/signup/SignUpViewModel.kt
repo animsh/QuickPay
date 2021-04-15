@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import com.animsh.quickpay.data.AuthRepository
 import com.animsh.quickpay.data.DataStoreRepository
 import com.animsh.quickpay.entities.FAuth
+import com.animsh.quickpay.entities.GAuth
 import com.animsh.quickpay.entities.User
+import com.google.firebase.auth.AuthCredential
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,6 +22,7 @@ class SignUpViewModel(
 
     var authenticatedUserLiveData: MutableLiveData<FAuth> = MutableLiveData()
     var dataStoreLiveData: MutableLiveData<FAuth> = MutableLiveData()
+    var googleAuthenticationLiveData: MutableLiveData<GAuth> = MutableLiveData()
 
     fun signUpUser(user: User) = CoroutineScope(Dispatchers.Main).launch {
         authenticatedUserLiveData = repository.signUp(user)
@@ -28,5 +31,10 @@ class SignUpViewModel(
     fun createUser(user: User) = CoroutineScope(Dispatchers.Main).launch {
         dataStoreLiveData = dataStoreRepository.createUser(user)
     }
+
+    fun googleAuthentication(authCredential: AuthCredential) =
+        CoroutineScope(Dispatchers.Main).launch {
+            googleAuthenticationLiveData = repository.googleAuthentication(authCredential)
+        }
 
 }

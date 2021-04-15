@@ -2,7 +2,7 @@ package com.animsh.quickpay.ui.auth.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.animsh.quickpay.ui.auth.AuthRepository
+import com.animsh.quickpay.data.AuthRepository
 
 /**
  * Created by animsh on 4/11/2021.

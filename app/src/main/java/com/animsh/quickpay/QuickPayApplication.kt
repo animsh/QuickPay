@@ -1,7 +1,8 @@
 package com.animsh.quickpay
 
 import android.app.Application
-import com.animsh.quickpay.ui.auth.AuthRepository
+import com.animsh.quickpay.data.AuthRepository
+import com.animsh.quickpay.data.DataStoreRepository
 import com.animsh.quickpay.ui.auth.forgetpassword.ForgetPasswordViewModelFactory
 import com.animsh.quickpay.ui.auth.login.LoginViewModelFactory
 import com.animsh.quickpay.ui.auth.signup.SignUpViewModelFactory
@@ -21,8 +22,9 @@ class QuickPayApplication : Application(), KodeinAware {
         import(androidXModule(this@QuickPayApplication))
 
         bind() from singleton { AuthRepository() }
+        bind() from singleton { DataStoreRepository() }
         bind() from provider { LoginViewModelFactory(instance()) }
-        bind() from provider { SignUpViewModelFactory(instance()) }
+        bind() from provider { SignUpViewModelFactory(instance(), instance()) }
         bind() from provider { ForgetPasswordViewModelFactory(instance()) }
     }
 

@@ -5,5 +5,5 @@ package com.animsh.quickpay.entities
  */
 data class FAuth(
     var isSuccess: Boolean = false,
-    var errorMsg: String = ""
+    var msg: String = ""
 )

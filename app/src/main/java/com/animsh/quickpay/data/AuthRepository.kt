@@ -1,4 +1,4 @@
-package com.animsh.quickpay.ui.auth
+package com.animsh.quickpay.data
 
 import androidx.lifecycle.MutableLiveData
 import com.animsh.quickpay.entities.FAuth
@@ -23,7 +23,7 @@ class AuthRepository {
                 fAuth.value = FAuth(isLogin, msg)
             } else {
                 val msg = it.exception?.message.toString()
-                fAuth.value = FAuth(errorMsg = msg)
+                fAuth.value = FAuth(msg = msg)
             }
         }
         return fAuth
@@ -35,11 +35,11 @@ class AuthRepository {
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     val isSuccess = it.result?.user?.uid != null
-                    val msg = it.exception?.message.toString()
+                    val msg = it.result?.user?.uid.toString()
                     fAuth.value = FAuth(isSuccess, msg)
                 } else {
                     val msg = it.exception?.message.toString()
-                    fAuth.value = FAuth(errorMsg = msg)
+                    fAuth.value = FAuth(msg = msg)
                 }
             }
 
@@ -55,7 +55,7 @@ class AuthRepository {
                 fAuth.value = FAuth(isSuccess, msg)
             } else {
                 val msg = it.exception?.message.toString()
-                fAuth.value = FAuth(errorMsg = msg)
+                fAuth.value = FAuth(msg = msg)
             }
         }
         return fAuth

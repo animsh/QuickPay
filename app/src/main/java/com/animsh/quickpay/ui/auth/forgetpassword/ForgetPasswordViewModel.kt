@@ -2,8 +2,8 @@ package com.animsh.quickpay.ui.auth.forgetpassword
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.animsh.quickpay.data.AuthRepository
 import com.animsh.quickpay.entities.FAuth
-import com.animsh.quickpay.ui.auth.AuthRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

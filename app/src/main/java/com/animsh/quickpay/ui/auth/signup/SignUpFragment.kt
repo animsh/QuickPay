@@ -99,18 +99,46 @@ class SignUpFragment : Fragment(R.layout.fragment_signup), KodeinAware {
                 ).invokeOnCompletion {
                     viewModel.authenticatedUserLiveData.observe(viewLifecycleOwner, { result ->
                         if (result.isSuccess) {
-                            Toast.makeText(
-                                requireContext(),
-                                "Login using email & password!!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            loadingDialog.dismissDialog()
-                            findNavController().popBackStack(R.id.loginFragment, true)
-                            findNavController().navigate(R.id.loginFragment)
+                            viewModel.createUser(
+                                User(
+                                    uid = result.msg,
+                                    email = uEmail.toString(),
+                                    password = uPassword.toString(),
+                                    name = uFullName.toString(),
+                                    mobile = uMobileNumber.toString()
+                                )
+                            ).invokeOnCompletion {
+                                viewModel.dataStoreLiveData.observe(
+                                    viewLifecycleOwner,
+                                    { dataResult ->
+                                        if (dataResult.isSuccess) {
+                                            Toast.makeText(
+                                                requireContext(),
+                                                "Login using email & password!!",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                            loadingDialog.dismissDialog()
+                                            findNavController().popBackStack(
+                                                R.id.loginFragment,
+                                                true
+                                            )
+                                            findNavController().navigate(R.id.loginFragment)
+                                        } else {
+                                            Toast.makeText(
+                                                requireContext(),
+                                                dataResult.msg,
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                            loadingDialog.dismissDialog()
+                                        }
+
+                                    })
+                            }
+
                         } else {
                             Toast.makeText(
                                 requireContext(),
-                                result.errorMsg,
+                                result.msg,
                                 Toast.LENGTH_SHORT
                             ).show()
                             loadingDialog.dismissDialog()

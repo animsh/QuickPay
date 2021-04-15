@@ -105,7 +105,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), KodeinAware {
                             } else {
                                 Toast.makeText(
                                     requireContext(),
-                                    result.errorMsg,
+                                    result.msg,
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 loadingDialog.dismissDialog()

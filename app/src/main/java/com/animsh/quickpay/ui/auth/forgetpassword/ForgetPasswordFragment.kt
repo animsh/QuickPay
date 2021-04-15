@@ -86,7 +86,7 @@ class ForgetPasswordFragment : BottomSheetDialogFragment(), KodeinAware {
                         } else {
                             Toast.makeText(
                                 requireContext(),
-                                result.errorMsg,
+                                result.msg,
                                 Toast.LENGTH_SHORT
                             ).show()
                             loadingDialog.dismissDialog()

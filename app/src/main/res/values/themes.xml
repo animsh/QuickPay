@@ -19,5 +19,7 @@
         <item name="text_color">@color/textColorLight</item>
         <item name="bottom_line_color">@color/bottomLineColorLight</item>
         <item name="bottom_sheet_background">@color/backGroundColorLight</item>
+        <item name="bottom_nav_color">#F8F8F8</item>
+        <item name="icon_tint_color">#181F0B</item>
     </style>
 </resources>

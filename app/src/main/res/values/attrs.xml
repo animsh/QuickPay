@@ -3,6 +3,7 @@
     <declare-styleable name="attr_declare">
 
         <attr name="background_color" format="color" />
+        <attr name="bottom_nav_color" format="color" />
         <attr name="text_color" format="color" />
         <attr name="icon_tint_color" format="color" />
         <attr name="bottom_line_color" format="color" />
